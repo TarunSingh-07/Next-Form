@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Registration {
+  id             Int      @id @default(autoincrement())
+  registrationId String   @unique
+  studentName    String
+  email          String
+  phone          String
+  course         String
+  batch          String
+  duration       String
+  paymentMethod  String
+  transactionId  String   @unique
+  amount         Decimal  @db.Decimal(10, 2)
+  paymentStatus  String
+  paymentDate    DateTime @default(now())
+  createdAt      DateTime @default(now())
+
+  @@index([email])
+  @@index([paymentStatus])
+  @@index([paymentDate])
+}
